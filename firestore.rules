@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Check if ID is a valid format and size
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() < 128;
+    }
+
+    match /portfolio/{docId} {
+      allow read: if true;
+      allow write: if isValidId(docId) && (docId == 'resume' || docId == 'config');
+    }
+
+    match /messages/{messageId} {
+      allow create: if isValidId(messageId) 
+        && request.resource.data.name is string 
+        && request.resource.data.email is string
+        && request.resource.data.message is string;
+      allow read, update, delete: if true;
+    }
+  }
+}

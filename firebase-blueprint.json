@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "Resume": {
+      "title": "Resume",
+      "description": "Personal resume data for deepanshthakur866@gmail.com",
+      "type": "object",
+      "properties": {
+        "personalInfo": {
+          "type": "object",
+          "description": "Personal name, title, contact info, and summary."
+        },
+        "education": {
+          "type": "array",
+          "description": "List of education history details."
+        },
+        "experiences": {
+          "type": "array",
+          "description": "List of work experience history."
+        },
+        "projects": {
+          "type": "array",
+          "description": "List of personal projects."
+        },
+        "skills": {
+          "type": "array",
+          "description": "List of skill categories."
+        },
+        "achievements": {
+          "type": "array",
+          "description": "List of achievements, certifications."
+        },
+        "coCurricular": {
+          "type": "array",
+          "description": "List of extra-curricular details."
+        }
+      },
+      "required": ["personalInfo"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Contact messages submitted by visitors",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["name", "email", "message"]
+    },
+    "AdminConfig": {
+      "title": "AdminConfig",
+      "description": "Administrative control parameters and password validations",
+      "type": "object",
+      "properties": {
+        "adminPassword": { "type": "string" },
+        "lastUpdated": { "type": "string" }
+      },
+      "required": ["adminPassword"]
+    }
+  },
+  "firestore": {
+    "/portfolio/resume": {
+      "schema": "Resume",
+      "description": "Single document containing portfolio and resume configurations."
+    },
+    "/portfolio/config": {
+      "schema": "AdminConfig",
+      "description": "Contains administrator configs and verification passcode."
+    },
+    "/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Individual messages sent through the developer contact form."
+    }
+  }
+}
